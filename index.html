@@ -107,10 +107,10 @@
 
     /* ── Hero ── */
     .hero {
-      min-height: 80vh;
+      min-height: 70vh;
       display: flex;
       align-items: center;
-      padding: 120px 0 60px;
+      padding: 100px 0 40px;
       position: relative;
       overflow: hidden;
     }
@@ -129,9 +129,10 @@
     .hero .container {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 60px;
+      gap: 0;
       align-items: center;
-      max-width: 720px;
+      max-width: 860px;
+      text-align: center;
     }
 
     .hero-content { z-index: 1; }
@@ -155,7 +156,7 @@
     .hero-headline {
       font-family: var(--font-heading);
       font-weight: 800;
-      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-size: clamp(2.2rem, 4.5vw, 3.2rem);
       color: var(--text-primary);
       line-height: 1.1;
       letter-spacing: -0.03em;
@@ -177,6 +178,8 @@
       color: var(--text-secondary);
       line-height: 1.7;
       max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
       margin-bottom: 32px;
       opacity: 0;
       animation: fadeUp 0.6s ease forwards 0.5s;
