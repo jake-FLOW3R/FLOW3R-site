@@ -6,8 +6,595 @@
   <title>FLOW3R — CRM & Job Management for Service Businesses</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #0a0f1e;
+      --bg-secondary: #0d1426;
+      --bg-card: #111827;
+      --bg-cta: #1e1040;
+      --bg-footer: #060a14;
+      --purple: #6d28d9;
+      --purple-bright: #8b5cf6;
+      --purple-muted: #5b21b6;
+      --purple-glow: rgba(139, 92, 246, 0.15);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: rgba(139, 92, 246, 0.2);
+      --font-heading: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      background: var(--bg-primary);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10, 15, 30, 0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(139, 92, 246, 0.08);
+    }
+
+    .nav-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #fff;
+      background: var(--purple);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 22px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--purple-bright);
+      box-shadow: 0 0 24px rgba(139, 92, 246, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-sm { padding: 8px 18px; font-size: 0.85rem; }
+
+    .btn-lg { padding: 14px 32px; font-size: 1rem; }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(109, 40, 217, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-content { z-index: 1; }
+
+    .hero-badge {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.8rem;
+      color: var(--purple-bright);
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.2s;
+    }
+
+    .hero-headline {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      color: var(--text-primary);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.35s;
+    }
+
+    .hero-headline .gradient {
+      background: linear-gradient(135deg, var(--purple-bright), #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.5s;
+    }
+
+    .hero .btn {
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.65s;
+    }
+
+    /* Dashboard mockup */
+    .hero-mockup {
+      position: relative;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.5s;
+    }
+
+    .mockup-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 0 60px rgba(139, 92, 246, 0.08), 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .mockup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .mockup-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    .mockup-live {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: #34d399;
+    }
+
+    .mockup-live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #34d399;
+      animation: pulse-dot 2s ease infinite;
+    }
+
+    .mockup-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .mockup-stat {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .mockup-stat-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    .mockup-stat-value {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--text-primary);
+    }
+
+    .mockup-stat-change {
+      font-size: 0.7rem;
+      color: #34d399;
+      margin-top: 4px;
+    }
+
+    .mockup-bar-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mockup-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mockup-bar-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      width: 70px;
+      flex-shrink: 0;
+    }
+
+    .mockup-bar-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .mockup-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--purple), var(--purple-bright));
+    }
+
+    /* ── Sections ── */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-label {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      text-align: center;
+      max-width: 520px;
+      margin: 0 auto 56px;
+    }
+
+    /* ── Problem ── */
+    .problem {
+      background: var(--bg-primary);
+    }
+
+    .problem .section-label {
+      margin-bottom: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .problem-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .problem-card:hover {
+      border-color: rgba(139, 92, 246, 0.4);
+      box-shadow: 0 0 30px rgba(139, 92, 246, 0.06);
+    }
+
+    .problem-icon {
+      margin-bottom: 18px;
+    }
+
+    .problem-card h3 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .problem-card p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    /* ── Features ── */
+    .features {
+      background: var(--bg-secondary);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 32px;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .feature-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .feature-card:hover {
+      border-color: var(--border);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-num {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: var(--purple-muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 14px;
+    }
+
+    .feature-card h3 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    /* ── How it works ── */
+    .how-it-works {
+      background: var(--bg-primary);
+    }
+
+    .how-it-works .section-label {
+      margin-bottom: 56px;
+    }
+
+    .steps {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .step {
+      flex: 1;
+      max-width: 280px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .step.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .step-number {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--purple);
+      color: #fff;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .step h3 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    .step-line {
+      flex-shrink: 0;
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple), var(--purple-bright));
+      margin-top: 22px;
+      border-radius: 1px;
+      opacity: 0.4;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      background: var(--bg-cta);
+      text-align: center;
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(109, 40, 217, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-headline {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .cta-sub {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      margin-bottom: 36px;
+      position: relative;
+    }
+
+    .cta .btn { position: relative; }
+
+    /* ── Footer ── */
+    .footer {
+      background: var(--bg-footer);
+      padding: 32px 0;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .footer p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .hero .container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-sub { margin-left: auto; margin-right: auto; }
+      .hero-mockup { max-width: 480px; margin: 0 auto; }
+      .problem-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .features-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .steps { flex-direction: column; align-items: center; }
+      .step-line {
+        width: 2px;
+        height: 40px;
+        margin: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .mockup-stats { grid-template-columns: 1fr; }
+      .nav-inner { padding: 0 16px; }
+      .container { padding: 0 16px; }
+      .section { padding: 72px 0; }
+    }
+  </style>
 </head>
 <body>
 
@@ -17,16 +604,56 @@
       <a href="#" class="logo">FLOW3R</a>
       <a href="https://calendly.com/jake-flow3rsolutions/30min" class="btn btn-sm">Book a Demo</a>
     </div>
-    <div class="nav-line"></div>
   </nav>
 
   <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <span class="hero-badge">&#10022; Built for service businesses</span>
-      <h1 class="hero-headline">Stop Running Your Business<br>From a Notepad</h1>
-      <p class="hero-sub">FLOW3R is the all-in-one CRM and job management platform built for service businesses that are tired of missed calls, scattered schedules, and unpaid invoices.</p>
-      <a href="https://calendly.com/jake-flow3rsolutions/30min" class="btn">Book a Demo</a>
+      <div class="hero-content">
+        <span class="hero-badge">&#10022; Built for service businesses</span>
+        <h1 class="hero-headline">Stop Running Your Business<br><span class="gradient">From a Notepad</span></h1>
+        <p class="hero-sub">FLOW3R is the all-in-one CRM and job management platform built for service businesses that are tired of missed calls, scattered schedules, and unpaid invoices.</p>
+        <a href="https://calendly.com/jake-flow3rsolutions/30min" class="btn">Book a Demo</a>
+      </div>
+      <div class="hero-mockup">
+        <div class="mockup-card">
+          <div class="mockup-header">
+            <span class="mockup-title">Dashboard</span>
+            <span class="mockup-live"><span class="mockup-live-dot"></span> Live</span>
+          </div>
+          <div class="mockup-stats">
+            <div class="mockup-stat">
+              <div class="mockup-stat-label">New Leads</div>
+              <div class="mockup-stat-value">47</div>
+              <div class="mockup-stat-change">+12% this week</div>
+            </div>
+            <div class="mockup-stat">
+              <div class="mockup-stat-label">Revenue</div>
+              <div class="mockup-stat-value">$18.4k</div>
+              <div class="mockup-stat-change">+8% this month</div>
+            </div>
+            <div class="mockup-stat">
+              <div class="mockup-stat-label">Jobs Scheduled</div>
+              <div class="mockup-stat-value">23</div>
+              <div class="mockup-stat-change">+5 from yesterday</div>
+            </div>
+          </div>
+          <div class="mockup-bar-group">
+            <div class="mockup-bar-row">
+              <span class="mockup-bar-label">Leads</span>
+              <div class="mockup-bar-track"><div class="mockup-bar-fill" style="width: 82%"></div></div>
+            </div>
+            <div class="mockup-bar-row">
+              <span class="mockup-bar-label">Quoted</span>
+              <div class="mockup-bar-track"><div class="mockup-bar-fill" style="width: 64%"></div></div>
+            </div>
+            <div class="mockup-bar-row">
+              <span class="mockup-bar-label">Closed</span>
+              <div class="mockup-bar-track"><div class="mockup-bar-fill" style="width: 45%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -36,17 +663,17 @@
       <h2 class="section-label">Sound familiar?</h2>
       <div class="problem-grid">
         <div class="problem-card">
-          <svg class="problem-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h6l3 7-4 3a16 16 0 0 0 7 7l3-4 7 3v6a2 2 0 0 1-2 2A22 22 0 0 1 4 6a2 2 0 0 1 2-2z"/><line x1="22" y1="8" x2="28" y2="14"/><line x1="28" y1="8" x2="22" y2="14"/></svg>
+          <svg class="problem-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h6l3 7-4 3a16 16 0 0 0 7 7l3-4 7 3v6a2 2 0 0 1-2 2A22 22 0 0 1 4 6a2 2 0 0 1 2-2z"/><line x1="22" y1="8" x2="28" y2="14"/><line x1="28" y1="8" x2="22" y2="14"/></svg>
           <h3>Missed Calls, Lost Revenue</h3>
           <p>Every unanswered call is a job that goes to your competitor. You can't grow if leads slip through the cracks while you're on-site.</p>
         </div>
         <div class="problem-card">
-          <svg class="problem-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="4,4 16,14 28,4"/><line x1="16" y1="14" x2="16" y2="28"/><line x1="8" y1="20" x2="24" y2="20"/><line x1="10" y1="28" x2="22" y2="28"/></svg>
+          <svg class="problem-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="4,4 16,14 28,4"/><line x1="16" y1="14" x2="16" y2="28"/><line x1="8" y1="20" x2="24" y2="20"/><line x1="10" y1="28" x2="22" y2="28"/></svg>
           <h3>Leads That Disappear</h3>
           <p>Sticky notes, text threads, mental notes — your pipeline lives in five places and none of them talk to each other.</p>
         </div>
         <div class="problem-card">
-          <svg class="problem-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="20" height="28" rx="2"/><path d="M16 10v12"/><path d="M13.5 20c0 1.5 1.2 2 2.5 2s2.5-.5 2.5-2-1.2-2-2.5-2-2.5-.5-2.5-2 1.2-2 2.5-2 2.5.5 2.5 2"/></svg>
+          <svg class="problem-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="20" height="28" rx="2"/><path d="M16 10v12"/><path d="M13.5 20c0 1.5 1.2 2 2.5 2s2.5-.5 2.5-2-1.2-2-2.5-2-2.5-.5-2.5-2 1.2-2 2.5-2 2.5.5 2.5 2"/></svg>
           <h3>Invoice Chaos</h3>
           <p>Jobs get done but payments lag for weeks. Hand-written invoices get lost and chasing money eats your evenings.</p>
         </div>
@@ -125,6 +752,23 @@
       <p>&copy; 2026 FLOW3R. All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          const siblings = entry.target.parentElement.querySelectorAll('.problem-card, .feature-card, .step');
+          const index = Array.from(siblings).indexOf(entry.target);
+          entry.target.style.transitionDelay = (index * 0.12) + 's';
+          entry.target.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.problem-card, .feature-card, .step').forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
