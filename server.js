@@ -9,6 +9,10 @@ app.get('/privacy', (req, res) => {
   res.sendFile(path.join(__dirname, 'privacy.html'));
 });
 
+app.get('/eula', (req, res) => {
+  res.sendFile(path.join(__dirname, 'eula.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
