@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — FLOW3R Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #0a0f1e;
+      --bg-secondary: #0d1426;
+      --bg-card: #111827;
+      --bg-footer: #060a14;
+      --purple: #6d28d9;
+      --purple-bright: #8b5cf6;
+      --purple-glow: rgba(139, 92, 246, 0.15);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: rgba(139, 92, 246, 0.2);
+      --font-heading: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      background: var(--bg-primary);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10, 15, 30, 0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(139, 92, 246, 0.08);
+    }
+
+    .nav-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+
+    h1 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 2rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .effective-date {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 2.5rem;
+    }
+
+    h2 {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: var(--text-primary);
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    a { color: var(--purple-bright); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .footer {
+      background: var(--bg-footer);
+      border-top: 1px solid rgba(139, 92, 246, 0.08);
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="logo">FLOW3R</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Privacy Policy for FLOW3R Solutions</h1>
+    <p class="effective-date">Effective Date: April 9, 2026</p>
+
+    <p>FLOW3R Solutions ("we", "us", or "our") operates a business management platform for service businesses. This policy explains how we collect and use data.</p>
+
+    <h2>What we collect</h2>
+    <p>Business contact information, customer lead data entered by our clients, and OAuth tokens for third-party integrations (e.g. QuickBooks).</p>
+
+    <h2>How we use it</h2>
+    <p>To provide the FLOW3R platform to our clients. We do not sell data to third parties.</p>
+
+    <h2>QuickBooks integration</h2>
+    <p>If you connect QuickBooks, we store an OAuth access token to sync data on your behalf. You can disconnect at any time from the Settings page.</p>
+
+    <h2>Data security</h2>
+    <p>Data is stored on Railway's managed PostgreSQL infrastructure. Access is restricted by business account.</p>
+
+    <h2>Contact</h2>
+    <p><a href="mailto:jake@flow3rsolutions.com">jake@flow3rsolutions.com</a></p>
+  </div>
+
+  <div class="footer">
+    &copy; 2026 FLOW3R Solutions. All rights reserved.
+  </div>
+</body>
+</html>
