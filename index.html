@@ -105,6 +105,23 @@
 
     .btn-lg { padding: 14px 32px; font-size: 1rem; }
 
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-link {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover { color: var(--text-primary); }
+
     /* ── Hero ── */
     .hero {
       min-height: 70vh;
@@ -489,7 +506,10 @@
   <nav class="nav">
     <div class="nav-inner">
       <a href="#" class="logo">FLOW3R</a>
-      <a href="https://calendly.com/jake-flow3rsolutions/30min" class="btn btn-sm">Book a Demo</a>
+      <div class="nav-actions">
+        <a href="/pricing.html" class="nav-link">Pricing</a>
+        <a href="https://calendly.com/jake-flow3rsolutions/30min" class="btn btn-sm">Book a Demo</a>
+      </div>
     </div>
   </nav>
 
